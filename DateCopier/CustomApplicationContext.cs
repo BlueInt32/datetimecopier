@@ -24,7 +24,7 @@ namespace DateCopier
             {
                 ContextMenuStrip = new ContextMenuStrip(),
                 Icon = IconResources.Time,
-                Text = "salut",
+                Text = "Set the current time to clipboard !",
                 Visible = true
             };
             _notifyIcon.ContextMenuStrip.Opening += ContextMenuStrip_Opening;
@@ -36,10 +36,7 @@ namespace DateCopier
             hk.Control = true;
             hk.Pressed += delegate
             {
-                //Console.WriteLine("Windows+f15 pressed!");
-                string timeCopied = DateTime.Now.ToString(_defaultDateFormat);
-                Clipboard.SetText(timeCopied);
-                _notifyIcon.ShowBalloonTip(500, "Date time copier", timeCopied + " copied to clipboard", ToolTipIcon.Info);
+                SetClipboard(DateTime.Now.ToString(_defaultDateFormat));
             };
 
             control = new Form1();
@@ -88,12 +85,18 @@ namespace DateCopier
         private void DateFormat1_Click(object sender, EventArgs e)
         {
             _defaultDateFormat = _baseDateFormat;
-            Clipboard.SetText(DateTime.Now.ToString(_defaultDateFormat));
+            SetClipboard(DateTime.Now.ToString(_defaultDateFormat));
         }
         private void DateFormat2_Click(object sender, EventArgs e)
         {
             _defaultDateFormat = _baseTimeFormat;
-            Clipboard.SetText(DateTime.Now.ToString(_defaultDateFormat));
+            SetClipboard(DateTime.Now.ToString(_defaultDateFormat));
+        }
+
+        private void SetClipboard(string time)
+        {
+            Clipboard.SetText(time);
+            _notifyIcon.ShowBalloonTip(1, time + " set to clipboard", "you can alos use ctrl + * to set clipboard value", ToolTipIcon.Info);
         }
     }
 }
