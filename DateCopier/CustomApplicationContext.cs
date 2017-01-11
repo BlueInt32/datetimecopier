@@ -23,7 +23,7 @@ namespace DateCopier
             _notifyIcon = new NotifyIcon(components)
             {
                 ContextMenuStrip = new ContextMenuStrip(),
-                Icon = IconResources.home,
+                Icon = IconResources.Time,
                 Text = "salut",
                 Visible = true
             };
@@ -32,12 +32,14 @@ namespace DateCopier
             _notifyIcon.Click += notifyIcon_Click;
 
             Hotkey hk = new Hotkey();
-            hk.KeyCode = Keys.F14;
+            hk.KeyCode = Keys.Multiply;
             hk.Control = true;
             hk.Pressed += delegate
             {
                 //Console.WriteLine("Windows+f15 pressed!");
-                Clipboard.SetText(DateTime.Now.ToString(_defaultDateFormat));
+                string timeCopied = DateTime.Now.ToString(_defaultDateFormat);
+                Clipboard.SetText(timeCopied);
+                _notifyIcon.ShowBalloonTip(500, "Date time copier", timeCopied + " copied to clipboard", ToolTipIcon.Info);
             };
 
             control = new Form1();
