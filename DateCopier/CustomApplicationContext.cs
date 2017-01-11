@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace DateCopier
@@ -24,7 +23,7 @@ namespace DateCopier
             _notifyIcon = new NotifyIcon(components)
             {
                 ContextMenuStrip = new ContextMenuStrip(),
-                Icon = new Icon(@"D:\Images\_icones\home.ico"),
+                Icon = IconResources.home,
                 Text = "salut",
                 Visible = true
             };
